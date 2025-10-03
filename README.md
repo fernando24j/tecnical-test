@@ -59,6 +59,23 @@ pnpm run dev      # Inicia el servidor con nodemon (desarrollo)
 pnpm run seed     # Ejecuta el script de semillas para la base de datos
 ```
 
+## 📥 Clonar el Repositorio
+
+Este repositorio usa **Git Submodules** para los proyectos Angular y Next.js. Para clonar todo el código correctamente:
+
+### Opción 1: Clonar con submodules (recomendado)
+```bash
+git clone --recurse-submodules https://github.com/fernando24j/tecnical-test.git
+```
+
+### Opción 2: Si ya clonaste sin submodules
+```bash
+git clone https://github.com/fernando24j/tecnical-test.git
+cd tecnical-test
+git submodule init
+git submodule update
+```
+
 ## 🛠️ Instalación
 
 Para instalar las dependencias de todos los proyectos:
