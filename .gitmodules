@@ -1,0 +1,6 @@
+[submodule "tt-nextjs"]
+	path = tt-nextjs
+	url = https://github.com/fernando24j/tt-nextjs
+[submodule "tt-angular"]
+	path = tt-angular
+	url = https://github.com/fernando24j/tt-angular
