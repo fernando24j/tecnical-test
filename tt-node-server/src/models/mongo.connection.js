@@ -4,8 +4,7 @@ const { connect } = mongoose;
 
 export const dbConnection = async () => {
   try {
-    // let uri = process.env.MONGODB_URI;
-     let uri = 'mongodb+srv://myconversationtrainer:myconversationtr4iner@cluster0.w7mbx.mongodb.net/conversational';
+    let uri = process.env.MONGODB_URI;
     // console.log(uri)
 
     if (!uri) {

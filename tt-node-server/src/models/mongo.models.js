@@ -7,69 +7,45 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "the name is required"],
     },
-    lastName: {
-      type: String,
-    },
     email: {
       type: String,
       required: [true, "the email is required"],
       unique: true,
-    },
-    phone: {
-      type: String,
+      lowercase: true,
     },
     password: {
       type: String,
-      required: [true, "must have a password"],
+      required: [true, "the password is required"],
     },
-    picture: {
+    google: {
+      type: Boolean,
+      default: false,
+    },
+    condition: {
+      type: Boolean,
+      default: true,
+    },
+    rol: {
+      type: Schema.Types.ObjectId,
+      ref: "Rol",
+      required: [true, "the rol is required"],
+    },
+    master: {
+      type: Boolean,
+      default: false,
+    },
+    tercero: {
+      type: Schema.Types.ObjectId,
+      ref: "Tercero",
+    },
+    status: {
       type: String,
+      enum: ["Active", "Inactive", "Pending"],
+      default: "Pending",
     },
     confirmationCode: {
       type: String,
     },
-    status: {
-      type: String,
-      default: "Pending",
-      enum: ["Pending", "Active"],
-      required: [true, "Must have an account status"],
-    },
-    superUser: {
-      type: Boolean,
-      default: false,
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    isTemplate: {
-      type: Boolean,
-      default: false,
-      required: true
-    },
-    environment: {
-      type: Types.ObjectId,
-      ref: "Environment",
-    },
-    subAdmin: {
-      active: {
-        type: Boolean,
-        default: false,
-      },
-      environment: {
-        type: Types.ObjectId,
-        ref: "Environment",
-      }
-    },
-    school: {
-      schoolId: {
-        type: Types.ObjectId,
-        ref: "School",
-      },
-      schoolName: {
-        type: String,
-      }
-    }
   },
   {
     versionKey: false,
@@ -79,63 +55,64 @@ const UserSchema = new Schema(
 export const User = models.User || model("User", UserSchema);
 
 
-const StudentSchema = new Schema(
+const RestrictionsSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: [true, "the name is required"],
+    invLimit: {
+      type: Number,
+      required: [true, "the inventory limit is required"],
+      default: 1000,
     },
-    lastName: {
-      type: String,
+    usersLimit: {
+      type: Number,
+      required: [true, "the users limit is required"],
+      default: 10,
     },
-    email: {
-      type: String,
-      required: [true, "the email is required"],
-      unique: true,
+    formulationsLimit: {
+      type: Number,
+      required: [true, "the formulations limit is required"],
+      default: 30,
     },
-    phone: {
-      type: String,
+    itemLimit: {
+      type: Number,
+      required: [true, "the item limit is required"],
+      default: 1500,
     },
-    password: {
-      type: String,
-      required: [true, "must have a password"],
+    rolesLimit: {
+      type: Number,
+      required: [true, "the roles limit is required"],
+      default: 5,
     },
-    picture: {
-      type: String,
+    equipmentLimit: {
+      type: Number,
+      required: [true, "the equipment limit is required"],
+      default: 5000,
     },
-    confirmationCode: {
-      type: String,
+    creationDate: {
+      type: Date,
+      default: Date.now,
     },
-    status: {
-      type: String,
-      default: "Pending",
-      enum: ["Pending", "Active"],
-      required: [true, "Must have an account status"],
+    accountTier: {
+      type: Number,
+      required: [true, "the account tier is required"],
+      default: 1,
     },
-    payment: {
-      status: {
+    modules: {
+      inventories: {
         type: Boolean,
-        default: false
+        default: true,
       },
-      accessCode: {
+      equipments: {
         type: Boolean,
-        default: false
-      },
-      paymentDate: Date,
-      expirationDate: Date,
-      emailSent: {
-        type: Boolean,
-        default: false
+        default: true,
       },
     },
-    accessCodes: {
-      type: [Object],
-      default: []
+    tercero: {
+      type: Schema.Types.ObjectId,
+      ref: "Tercero",
+      required: [true, "the tercero is required"],
     },
-    extraInfo: String,
-    environment: {
-      type: Types.ObjectId,
-      ref: "Environment",
+    agentCode: {
+      type: String,
     },
   },
   {
@@ -143,118 +120,36 @@ const StudentSchema = new Schema(
     timestamps: true,
   }
 );
+export const Restrictions = models.Restrictions || model("Restrictions", RestrictionsSchema);
 
-export const Student = models.Student || model("Student", StudentSchema);
 
-const SectionSchema = new Schema(
+const CompanyInfosSchema = new Schema(
   {
-    userId: {
-      type: Types.ObjectId,
-      ref: "User",
-      required: [true, "user id is required"],
-      index: {
-        unique: false,
-      },
-    },
-    archived: {
-      type: Boolean,
-      default: false
-    },
-    name: String,
-    sectionCode: String,
-    school: {
-      schoolId: {
-        type: Types.ObjectId,
-        ref: "School",
-      },
-      schoolName: {
-        type: String,
-      }
-    },
-    language: {
+    phoneNumber: {
       type: String,
-      default: "es",
-      enum: ["es", "fr"]
-    }
-  },
-  {
-    versionKey: false,
-  }
-);
-
-export const Section = models.Section || model("Section", SectionSchema);
-
-const GroupSchema = new Schema(
-  {
-    name: String,
-    SectionId: {
-      type: Types.ObjectId,
-      ref: "Section",
-      required: [true, "Section id is required"],
-      index: {
-        unique: false,
-      },
+      required: [true, "the phone number is required"],
     },
-    userId: {
-      type: Types.ObjectId,
-      ref: "User",
-      required: [true, "user id is required"],
-      index: {
-        unique: false,
-      },
+    tercero: {
+      type: Schema.Types.ObjectId,
+      ref: "Tercero",
+      required: [true, "the tercero is required"],
     },
-    order: Number,
-  },
-  {
-    versionKey: false,
-  }
-);
-
-const ConversationSchema = new Schema(
-  {
-    name: String,
-    description: String,
-    userId: {
-      type: Types.ObjectId,
-      ref: "User",
-      required: [true, "user id is required"],
-      index: {
-        unique: false,
-      },
-    },
-    groupId: {
-      type: Types.ObjectId,
-      ref: "Group",
-      required: [true, "Group id is required"],
-      index: {
-        unique: false,
-      },
-    },
-    questionArray: [String],
-    level: String,
-    roleIA: String,
-    contextIA: String,
-    vocabulary: String,
-    evaluationMode: Boolean,
-    image: String,
-    initialMessage: String,
-    time: {
-      type: Number,
-      default: 10,
-    },
-    selectedVoice: {
-      name: String,
-      languageCode: String,
-    },
-    dueDate: Date,
-    difficulty: {
-      default: "intermedio",
+    TIN: {
       type: String,
-      enum: ["básico", "intermedio"],
+      required: [true, "the TIN is required"],
     },
-    index: Number,
+    address: {
+      type: String,
+      required: [true, "the address is required"],
+    },
+    name: {
+      type: String,
+      required: [true, "the company name is required"],
+    },
   },
   {
     versionKey: false,
+    timestamps: true,
   }
 );
+export const CompanyInfos = models.CompanyInfos || model("CompanyInfos", CompanyInfosSchema);
