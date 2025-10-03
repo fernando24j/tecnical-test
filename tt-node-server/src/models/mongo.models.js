@@ -153,3 +153,137 @@ const CompanyInfosSchema = new Schema(
   }
 );
 export const CompanyInfos = models.CompanyInfos || model("CompanyInfos", CompanyInfosSchema);
+
+
+const EquipmentsSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "the equipment name is required"],
+    },
+    code: {
+      type: String,
+      required: [true, "the code is required"],
+    },
+    serial: {
+      type: String,
+    },
+    status: {
+      type: Schema.Types.ObjectId,
+      ref: "Status",
+    },
+    header: {
+      type: String,
+      default: "",
+    },
+    additionalInfo: {
+      type: String,
+      default: "",
+    },
+    observations: {
+      type: String,
+      default: "",
+    },
+    fields: [
+      {
+        type: {
+          type: String,
+          required: true,
+        },
+        valor: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    configs: {
+      type: [Schema.Types.ObjectId],
+      ref: "Config",
+      default: [],
+    },
+    suppliers: {
+      type: [Schema.Types.ObjectId],
+      ref: "Supplier",
+      default: [],
+    },
+    tercero: {
+      type: Schema.Types.ObjectId,
+      ref: "Tercero",
+      required: [true, "the tercero is required"],
+    },
+    valhalla: {
+      type: Boolean,
+      default: false,
+    },
+    attachments: {
+      type: [Schema.Types.ObjectId],
+      ref: "Attachment",
+      default: [],
+    },
+    image: {
+      type: String,
+      default: "",
+    },
+  },
+  {
+    versionKey: false,
+    timestamps: true,
+  }
+);
+export const Equipments = models.Equipments || model("Equipments", EquipmentsSchema);
+
+
+const EtherealVariablesSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "the name is required"],
+    },
+    target: {
+      type: String,
+      required: [true, "the target is required"],
+    },
+    display: {
+      type: Boolean,
+      default: true,
+    },
+    variables: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    type: {
+      type: String,
+      required: [true, "the type is required"],
+    },
+    tercero: {
+      type: Schema.Types.ObjectId,
+      ref: "Tercero",
+      required: [true, "the tercero is required"],
+    },
+    valhalla: {
+      type: Boolean,
+      default: false,
+    },
+    column: {
+      type: Number,
+      default: 0,
+    },
+    index: {
+      type: Number,
+      default: 0,
+    },
+  },
+  {
+    versionKey: false,
+    timestamps: true,
+  }
+);
+export const EtherealVariables = models.EtherealVariables || model("EtherealVariables", EtherealVariablesSchema);

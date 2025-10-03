@@ -1,12 +1,8 @@
 // Test Controller
 import { User } from '../models/mongo.models.js';
-
 export const getTest = async (req, res) => {
   try {
-    const users = await User.find()
-      .select('name email status superUser createdAt')
-      .sort({ createdAt: -1 })
-      .limit(10);
+    const users = await User.find({}).limit(10);
 
     res.json({
       message: 'Users retrieved successfully',
