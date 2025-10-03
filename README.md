@@ -23,9 +23,9 @@ tecnical-test/
 **Scripts disponibles:**
 ```bash
 cd tt-angular
-npm start        # Inicia el servidor de desarrollo
-npm run build    # Construye la aplicación para producción
-npm test         # Ejecuta las pruebas unitarias
+pnpm start        # Inicia el servidor de desarrollo
+pnpm run build    # Construye la aplicación para producción
+pnpm test         # Ejecuta las pruebas unitarias
 ```
 
 ### 2. Next.js Frontend (`tt-nextjs`)
@@ -38,10 +38,10 @@ npm test         # Ejecuta las pruebas unitarias
 **Scripts disponibles:**
 ```bash
 cd tt-nextjs
-npm run dev      # Inicia el servidor de desarrollo con Turbopack
-npm run build    # Construye la aplicación para producción
-npm start        # Inicia la aplicación en modo producción
-npm run lint     # Ejecuta ESLint
+pnpm run dev      # Inicia el servidor de desarrollo con Turbopack
+pnpm run build    # Construye la aplicación para producción
+pnpm start        # Inicia la aplicación en modo producción
+pnpm run lint     # Ejecuta ESLint
 ```
 
 ### 3. Node.js Server (`tt-node-server`)
@@ -54,9 +54,9 @@ npm run lint     # Ejecuta ESLint
 **Scripts disponibles:**
 ```bash
 cd tt-node-server
-npm start        # Inicia el servidor en modo producción
-npm run dev      # Inicia el servidor con nodemon (desarrollo)
-npm run seed     # Ejecuta el script de semillas para la base de datos
+pnpm start        # Inicia el servidor en modo producción
+pnpm run dev      # Inicia el servidor con nodemon (desarrollo)
+pnpm run seed     # Ejecuta el script de semillas para la base de datos
 ```
 
 ## 🛠️ Instalación
@@ -65,13 +65,13 @@ Para instalar las dependencias de todos los proyectos:
 
 ```bash
 # Angular
-cd tt-angular && npm install
+cd tt-angular && pnpm install
 
 # Next.js
-cd tt-nextjs && npm install
+cd tt-nextjs && pnpm install
 
 # Node.js Server
-cd tt-node-server && npm install
+cd tt-node-server && pnpm install
 ```
 
 ## 🔧 Configuración
@@ -84,4 +84,4 @@ cd tt-node-server && npm install
 
 - Cada proyecto mantiene sus propias dependencias en sus respectivos `node_modules`
 - Los archivos `.env` están incluidos en el repositorio para facilitar la configuración
-- El servidor Node.js utiliza pnpm como package manager por defecto
+- Todos los proyectos utilizan pnpm como package manager
