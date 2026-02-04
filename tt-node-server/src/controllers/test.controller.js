@@ -2,7 +2,7 @@
 import { User } from '../models/mongo.models.js';
 export const getTest = async (req, res) => {
   try {
-    const users = await User.find({}).limit(10);
+    const users = await User.find({}).limit(20);
 
     res.json({
       message: 'Users retrieved successfully',
